@@ -4,40 +4,43 @@
  * This code is copyright (c) 2016 Prius Solution
  */
 
-angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialInk', 'ionicMaterialMotion', '$ionicLoading', '$timeout',
-  function ($scope, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, $timeout) {
+angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialInk', 'ionicMaterialMotion', '$ionicLoading', '$timeout', 'ParsePush',
+  function ($scope, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, $timeout, ParsePush) {
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.fadeSlideInRight();
-    $scope.hasSubscribed = false;
+    $scope.hasSubscribed = window.localStorage.hasSubscribed ? window.localStorage.hasSubscribed : false;
 
     /**
      * Subscribe
      */
     $scope.subscribe = function () {
       showLoading();
-      $timeout(function () {
+      ParsePush.subscribe(function (data) {
         hidePopup();
-        showMessage("Subscribed!");
-        $timeout(function () {
-          hidePopup();
+        if (data.error) {
+          showMessage(data.error);
+        } else {
+          showMessage("Subscribed!");
           $scope.hasSubscribed = true;
-        }, 1000);
-      }, 1000);
+          window.localStorage.hasSubscribed = true;
+          hidePopupAfterTimeout();
+        }
+      });
     };
 
-    /**
-     * UnSubscribe
-     */
-    $scope.unSubscribe = function () {
+    $scope.unsubscribe = function () {
       showLoading();
-      $timeout(function () {
+      ParsePush.unsubscribe(function (data) {
         hidePopup();
-        showMessage("Subscribed!");
-        $timeout(function () {
-          hidePopup();
+        if (data.error) {
+          showMessage(data.error);
+        } else {
+          showMessage("Subscribed!");
           $scope.hasSubscribed = false;
-        }, 1000);
-      }, 1000);
+          window.localStorage.hasSubscribed = false;
+          hidePopupAfterTimeout();
+        }
+      });
     };
 
     function showMessage(message) {
@@ -57,10 +60,20 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
       })
     }
 
+    /**
+    * Hides a popup after 1 sec
+    */
+    function hidePopupAfterTimeout() {
+        $timeout(function () {
+          hidePopup();
+          $scope.hasSubscribed = true;
+        }, 1000);-
+    }
+
       /**
        * Hide loading
        */
     function hidePopup() {
         $ionicLoading.hide();
-      }
+    }
 }]);
