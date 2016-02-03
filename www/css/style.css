@@ -1,0 +1,40 @@
+.bg {
+  background: url("../img/bg.jpg") no-repeat;
+  background-size: cover;
+}
+
+.container {
+  margin-top: 50px;
+  padding: 0 20px;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  background-color: #8A6DE9;
+  margin: 0 auto;
+  border-radius: 100%;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  margin: 20px 0;
+}
+.action-buttons {
+  margin-top: 50px;
+}
+
+.action-button {
+  margin: 20px 0 !important;
+}
+
+.message-container {
+  position: relative;
+  margin: 0 auto;
+  width: 150px;
+  height: auto;
+  font-size: 21px;
+  zoom: 1.7;
+  color: #27AE60;
+}
