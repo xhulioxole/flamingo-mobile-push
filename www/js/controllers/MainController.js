@@ -8,7 +8,7 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
   function ($scope, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, $timeout, ParsePush) {
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.fadeSlideInRight();
-    $scope.hasSubscribed = window.localStorage.hasSubscribed ? window.localStorage.hasSubscribed : false;
+    $scope.hasSubscribed = window.localStorage.hasSubscribed ? true : false;
 
     /**
      * Subscribe
@@ -28,14 +28,17 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
       });
     };
 
-    $scope.unsubscribe = function () {
+      /**
+       * UnSubscribe
+       */
+    $scope.unSubscribe = function () {
       showLoading();
-      ParsePush.unsubscribe(function (data) {
+      ParsePush.unSubscribe(function (data) {
         hidePopup();
         if (data.error) {
           showMessage(data.error);
         } else {
-          showMessage("Subscribed!");
+          showMessage("UnSubscribed!");
           $scope.hasSubscribed = false;
           window.localStorage.hasSubscribed = false;
           hidePopupAfterTimeout();
@@ -43,6 +46,10 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
       });
     };
 
+      /**
+       * Show popup with message
+       * @param message
+       */
     function showMessage(message) {
       $ionicLoading.show({
         template: '<div class="loader message-container">' +  message + '</div>',
@@ -51,7 +58,7 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
     }
 
     /**
-     * Show loading
+     * Show loading popup
      */
     function showLoading() {
       $ionicLoading.show({
@@ -66,8 +73,7 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
     function hidePopupAfterTimeout() {
         $timeout(function () {
           hidePopup();
-          $scope.hasSubscribed = true;
-        }, 1000);-
+        }, 1000);
     }
 
       /**

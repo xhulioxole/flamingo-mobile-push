@@ -36,7 +36,7 @@ angular.module('flamingoApp').factory('ParsePush', ['$state', function ($state) 
     */
     ParsePush.subscribe = function (callback) {
       ParsePushPlugin.subscribe(constants.DEFAULT_CHANNEL, function () {
-        callback();
+        callback({});
       }, function () {
         callback({error: "Failed to subscribe!"});
       })
@@ -45,9 +45,9 @@ angular.module('flamingoApp').factory('ParsePush', ['$state', function ($state) 
     /**
     * Unsubscribe
     */
-    ParsePush.unsubscribe = function (callback) {
+    ParsePush.unSubscribe = function (callback) {
       ParsePushPlugin.unsubscribe(constants.DEFAULT_CHANNEL, function () {
-        callback();
+        callback({});
       }, function () {
         callback({error: "Failed to unsubscribe!"});
       })
@@ -59,7 +59,7 @@ angular.module('flamingoApp').factory('ParsePush', ['$state', function ($state) 
     function handlePushNotification() {
       ParsePushPlugin.received(function(data) {
         if (data.length > 0) {
-          alert("Received");
+          /*alert("Received");*/
         }
       }, function(e) {
         console.log('Error Obtaining Push Data: ' + e);
