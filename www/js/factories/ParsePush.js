@@ -4,7 +4,7 @@
  * This code is copyright (c) 2016 Prius Solution
  */
 
-angular.module('flamingoApp').factory('ParsePush', ['$state', function ($state) {
+angular.module('flamingoApp').factory('ParsePush', ['$ionicLoading', '$timeout', function ($ionicLoading, $timeout) {
   var ParsePush = {};
   var constants = {
     APPLICATION_ID: "EeTw0sCimqaTb73PSqvtl942prQh0pPxDzOX0KXl",
@@ -59,13 +59,34 @@ angular.module('flamingoApp').factory('ParsePush', ['$state', function ($state) 
     function handlePushNotification() {
       ParsePushPlugin.received(function(data) {
         if (data.length > 0) {
-          /*alert("Received");*/
+          showPushMessage(data.title, data.message);
         }
       }, function(e) {
         console.log('Error Obtaining Push Data: ' + e);
       });
     }
   };
+
+  /**
+   * Show popup
+   * @param title
+   * @param message
+     */
+  function showPushMessage(title, message) {
+    $ionicLoading.show({
+      template: '<div class="loader message-container"><h3>' +  title + '</h3><p>' +  message + '</p></div>',
+      class: 'message-container'
+    })
+  }
+
+  /**
+   * Hides a popup after 3 sec
+   */
+  function hidePopupAfterTimeout() {
+    $timeout(function () {
+      $ionicLoading.hide();
+    }, 3000);
+  }
 
   return ParsePush;
 }]);

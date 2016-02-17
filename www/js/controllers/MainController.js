@@ -8,7 +8,7 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
   function ($scope, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, $timeout, ParsePush) {
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.fadeSlideInRight();
-    $scope.hasSubscribed = window.localStorage.hasSubscribed ? true : false;
+    $scope.hasSubscribed = window.localStorage.hasSubscribed ? window.localStorage.hasSubscribed : false;
 
     /**
      * Subscribe
@@ -73,6 +73,7 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
     function hidePopupAfterTimeout() {
         $timeout(function () {
           hidePopup();
+          $scope.hasSubscribed = true;
         }, 1000);
     }
 

@@ -35,9 +35,18 @@
 .message-container {
   position: relative;
   margin: 0 auto;
-  width: 150px;
+  width: 250px;
   height: auto;
   font-size: 21px;
   zoom: 1.7;
   color: #27AE60;
+}
+
+.message-container h3 {
+  color: #27AE60 !important;
+}
+
+.message-container h3 {
+  color: white !important;
+  font-size: 17px;
 }
