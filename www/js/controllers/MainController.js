@@ -73,7 +73,6 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
     function hidePopupAfterTimeout() {
         $timeout(function () {
           hidePopup();
-          $scope.hasSubscribed = true;
         }, 1000);
     }
 

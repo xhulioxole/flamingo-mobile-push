@@ -59,7 +59,12 @@ angular.module('flamingoApp').factory('ParsePush', ['$ionicLoading', '$timeout',
     function handlePushNotification() {
       ParsePushPlugin.received(function(data) {
         if (data.length > 0) {
-          showPushMessage(data.title, data.message);
+          console.log(data);
+          var response = JSON.parse(data);
+          if (response.title && response.alert) {
+            showPushMessage(response.title, response.alert);
+            hidePopupAfterTimeout();
+          }
         }
       }, function(e) {
         console.log('Error Obtaining Push Data: ' + e);
@@ -85,7 +90,7 @@ angular.module('flamingoApp').factory('ParsePush', ['$ionicLoading', '$timeout',
   function hidePopupAfterTimeout() {
     $timeout(function () {
       $ionicLoading.hide();
-    }, 3000);
+    }, 6000);
   }
 
   return ParsePush;
