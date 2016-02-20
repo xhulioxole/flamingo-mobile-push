@@ -21,15 +21,16 @@ angular.module('flamingoApp').factory('ParsePush', ['$ionicLoading', '$timeout',
    * Init
    */
   ParsePush.init = function() {
-    ParsePushPlugin.register(parseConfig, function() {
-      ParsePushPlugin.getInstallationId(function(id) {
-      }, function(e) {
+    ParsePushPlugin.register(parseConfig, function () {
+      ParsePushPlugin.getInstallationId(function (id) {
+      }, function (e) {
         console.log('Error getting installationId!');
       });
       handlePushNotification();
-    }, function(e) {
+    }, function (e) {
       console.log('Error registering device: ' + e);
     });
+  }
 
     /**
     * Subscribe
@@ -70,7 +71,6 @@ angular.module('flamingoApp').factory('ParsePush', ['$ionicLoading', '$timeout',
         console.log('Error Obtaining Push Data: ' + e);
       });
     }
-  };
 
   /**
    * Show popup

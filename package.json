@@ -24,7 +24,8 @@
     {
       "locator": "https://github.com/xhulioxole/Parse-Push-Plugin-Android.git",
       "id": "org.apache.cordova.core.ParsePushPlugin"
-    }
+    },
+    "cordova-plugin-keyboard"
   ],
   "cordovaPlatforms": [
     "android"

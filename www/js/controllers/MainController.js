@@ -8,8 +8,9 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
   function ($scope, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, $timeout, ParsePush) {
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.fadeSlideInRight();
-    $scope.hasSubscribed = window.localStorage.hasSubscribed ? window.localStorage.hasSubscribed : false;
-
+    $scope.hasSubscribed = window.localStorage.hasSubscribed == "true" ? window.localStorage.hasSubscribed : false;
+    console.log(window.localStorage.hasSubscribed);
+    console.log($scope.hasSubscribed);
     /**
      * Subscribe
      */
@@ -23,8 +24,8 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
           showMessage("Subscribed!");
           $scope.hasSubscribed = true;
           window.localStorage.hasSubscribed = true;
-          hidePopupAfterTimeout();
         }
+        hidePopupAfterTimeout();
       });
     };
 
@@ -41,8 +42,8 @@ angular.module("flamingoApp").controller("MainCtrl", ['$scope', 'ionicMaterialIn
           showMessage("UnSubscribed!");
           $scope.hasSubscribed = false;
           window.localStorage.hasSubscribed = false;
-          hidePopupAfterTimeout();
         }
+        hidePopupAfterTimeout();
       });
     };
 
